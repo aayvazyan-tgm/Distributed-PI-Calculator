@@ -14,3 +14,7 @@ out/
 # eclipse Files #
 **/.classpath
 **/.project
+
+# astah Files   #
+**/*.bak
+**/*.lock
