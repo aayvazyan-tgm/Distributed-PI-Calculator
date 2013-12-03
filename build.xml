@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Calculator" default="jar" basedir=".">
+    <tstamp>
+        <format property="TODAY"
+                pattern="yyyyMMdd"
+                locale="en,UK"/>
+    </tstamp>
+
+    <property name="authors.name"   value="Klepp" />
+    <property name="version"        value="${TODAY}" />
+    <property name="src.dir"	    value="src" />
+    <property name="test.src.dir"   value="test" />
+    <property name="lib.dir"        value="lib" />
+    <property name="out.dir"        value="out" />
+    <property name="main.class"     value="Main" />
+    <property name="proto.in"       value="README.rst" />
+    <property name="proto.name"     value="Document.pdf" />
+    <property name="build.dir"	    value="${out.dir}/build" />
+    <property name="build.test.dir" value="${build.dir}" />
+    <property name="proto.dir"      value="${build.dir}" />
+    <property name="jd.dir"         value="${build.dir}/javadoc" />
+    <property name="jar.dir"        value="${out.dir}" />
+    <property name="jar.name"       value="${ant.project.name}_${version}_${authors.name}.jar" />
+    <property name="gitlog.dir"     value="${build.dir}" />
+    <property name="gitlog.name"    value="git.log" />
+    <property name="test.report.dir" value="${out.dir}/test-report" />
+
+    <!-- libs to download -->
+    <property name="junit.v"        value="4.11" />
+    <property name="hamcrest.v"     value="1.3" />
+    <property name="junit.name"     value="junit-${junit.v}.jar" />
+    <property name="hamcrest.name"  value="hamcrest-core-${hamcrest.v}.jar" />
+    <property name="junit.url"
+              value="http://search.maven.org/remotecontent?filepath=junit/junit/${junit.v}/junit-${junit.v}.jar" />
+    <property name="hamcrest.url"
+              value="http://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/${hamcrest.v}/hamcrest-core-${hamcrest.v}.jar" />
+
+    <path id="project.classpath">
+        <pathelement location="${build.dir}" />
+    </path>
+
+    <target name="compile" description="Compile project.">
+        <mkdir dir="${build.dir}" />
+        <javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="project.classpath" debug="true" deprecation="true" includeantruntime="false" />
+    </target>
+
+    <target name="run" depends="compile" description="Run project">
+        <java classname="${main.class}" fork="true" classpathref="project.classpath">
+        </java>
+    </target>
+
+    <available property="junit.downloaded" file="${lib.dir}/${junit.name}" />
+    <available property="hamcrest.downloaded" file="${lib.dir}/${junit.name}" />
+
+    <target name="download-junit" unless="junit.downloaded">
+        <mkdir dir="${lib.dir}" />
+        <get src="${junit.url}" dest="${lib.dir}/${junit.name}" />
+    </target>
+
+    <target name="download-hamcrest" unless="hamcrest.downloaded">
+        <mkdir dir="${lib.dir}" />
+        <get src="${hamcrest.url}" dest="${lib.dir}/${hamcrest.name}" />
+    </target>
+
+    <target name="download-libs" depends="download-junit, download-hamcrest" description="download lib jars" />
+
+    <path id="junit.class.path">
+        <pathelement location="${lib.dir}/${junit.name}" />
+        <pathelement location="${lib.dir}/${hamcrest.name}" />
+        <pathelement location="${build.dir}" />
+    </path>
+
+    <target name="compile-test" depends="compile, download-libs" description="Compile project tests.">
+        <mkdir dir="${build.dir}" />
+        <javac srcdir="${test.src.dir}" destdir="${build.dir}" classpathref="junit.class.path" debug="true" deprecation="true" includeantruntime="false" />
+    </target>
+
+    <target name="run-test" depends="compile, compile-test" description="Run unit tests.">
+        <mkdir dir="${test.report.dir}" />
+        <junit printsummary="on" fork="true" haltonfailure="yes">
+            <classpath refid="junit.class.path" />
+            <classpath>
+                <pathelement location="${build.test.dir}"/>
+            </classpath>
+            <formatter type="plain" />
+            <batchtest todir="${test.report.dir}">
+                <fileset dir="${test.src.dir}">
+                    <include name="**/*Test*.java" />
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="clean" description="Clean build products.">
+        <delete dir="${build.dir}" />
+    </target>
+
+    <target name="rebuild" depends="clean, compile" description="Clean and build products." />
+
+    <target name="create-jd" description="Creates the Javadocs">
+        <mkdir dir="${jd.dir}"/>
+        <javadoc sourcepath="${src.dir}" destdir="${jd.dir}" classpathref="project.classpath">
+        </javadoc>
+    </target>
+
+    <target name="clean-jd" description="Clean javadocs">
+        <delete dir="${jd.dir}" />
+    </target>
+
+    <target name="rebuild-jd" depends="clean-jd, create-jd" description="Clean and build Javadoc" />
+
+    <target name="create-protocol" description="Creates the protocol">
+        <mkdir dir="${proto.dir}"/>
+        <exec executable="rst2pdf">
+            <arg value="-o" />
+            <arg value="${proto.dir}/${proto.name}" />
+            <arg value="${proto.in}" />
+        </exec>
+    </target>
+
+    <target name="clean-protocol" description="Clean protocol">
+        <delete file="${proto.dir}/${proto.name}" />
+    </target>
+
+    <target name="rebuild-protocol" depends="clean-protocol, create-protocol" description="Clean and build protocol" />
+
+    <target name="git-log" description="generates git log">
+        <mkdir dir="${gitlog.dir}"/>
+        <exec executable="git">
+            <arg value="log" />
+            <arg value="--stat" />
+            <redirector output="${gitlog.dir}/${gitlog.name}" />
+        </exec>
+    </target>
+
+    <target name="jar" depends="rebuild, rebuild-jd, rebuild-protocol, git-log" description="Creates a jar for distribution" >
+        <delete dir="${build.dir}/src" />
+        <copy todir="${build.dir}/src">
+            <fileset dir="${src.dir}" />
+        </copy>
+
+        <delete dir="${build.dir}/test" />
+        <copy todir="${build.dir}/test">
+            <fileset dir="${test.src.dir}" />
+        </copy>
+
+        <copy file="build.xml" todir="${build.dir}" />
+
+        <jar destfile="${jar.dir}/${jar.name}">
+            <fileset dir="${build.dir}"/>
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+            </manifest>
+        </jar>
+    </target>
+</project>
