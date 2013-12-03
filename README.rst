@@ -94,9 +94,9 @@ An Overview of RMI Applications, Oracle Online Resource,
 
 http://docs.oracle.com/javase/tutorial/rmi/overview.html (last viewed 03.12.2013)
 
-======
-Planug
-======
+=======
+Planung
+=======
 ~~~~~~~~~~~~~~~~~
 Aufwandsschätzung
 ~~~~~~~~~~~~~~~~~
@@ -124,6 +124,13 @@ Aufwandsschätzung
 | Dokumentation                     |      1:20     |   Mittel    | jklepp    |
 +-----------------------------------+---------------+-------------+-----------+
 
+~~~~~~~~~~~~~~~
+Klassendiagramm
+~~~~~~~~~~~~~~~
+
+.. image:: doc/classDiagram.png
+    :width: 75%
+
 =========
 Umsetzung
 =========
@@ -142,6 +149,7 @@ Server
 ~~~~~~~~~~~
 JUnit tests
 ~~~~~~~~~~~
+
 .. code:: text
 
 
@@ -162,15 +170,17 @@ Zeitaufzeichnung
 +----------------------------+-----------+--------------+---------+---------+-----------+
 | Vorbereitung Dokument      | jklepp    |  2013-12-03  |  20:00  |  20:35  |     0:35  |
 +----------------------------+-----------+--------------+---------+---------+-----------+
+| UML                        | jklepp    |  2013-12-03  |  21:15  |  21:50  |     0:35  |
++----------------------------+-----------+--------------+---------+---------+-----------+
 
 
 .. header::
 
     +-------------+---------------+------------+
-    | Autor       | Titel         | Datum      |
+    | Titel       | Autor         | Datum      |
     +=============+===============+============+
-    | ###Title### | Jakob Klepp & | 03.12.2013 |
-    |             | Ari Ayvazyan  |            |
+    | ###Title### | Ari Ayvazyan  | 03.12.2013 |
+    |             | & Jakob Klepp |            |
     +-------------+---------------+------------+
 
 .. footer::
