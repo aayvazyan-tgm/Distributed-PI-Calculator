@@ -19,7 +19,7 @@ package rmi;
 /**
  * The Class Proxy.
  */
-public class Proxy extends AbstractWorker {
+public class Proxy extends Server {
 
 	/**
 	 * Instantiates a new proxy.
@@ -27,8 +27,6 @@ public class Proxy extends AbstractWorker {
 	 * @param calc the calc
 	 */
 	public Proxy(Calculator calc) {
-		super(calc);
-		// TODO Auto-generated constructor stub
-	}
 
+	}
 }

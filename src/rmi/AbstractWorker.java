@@ -27,15 +27,6 @@ public abstract class AbstractWorker {
 	private Calculator calculator;
 
 	/**
-	 * Instantiates a new abstract worker.
-	 *
-	 * @param calc the calc
-	 */
-	public AbstractWorker(Calculator calc){
-		this.calculator=calc;
-	}
-
-	/**
 	 * Pi.
 	 *
 	 * @param anzahlNachkommastellen the anzahl nachkommastellen
@@ -45,4 +36,7 @@ public abstract class AbstractWorker {
 		return calculator.pi(anzahlNachkommastellen);
 	}
 
+    public void setCalculator(Calculator calculator) {
+        this.calculator = calculator;
+    }
 }

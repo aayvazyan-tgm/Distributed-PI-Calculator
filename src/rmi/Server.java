@@ -15,20 +15,18 @@
  */
 package rmi;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Server.
  */
 public class Server extends AbstractWorker {
 
 	/**
-	 * Instantiates a new server.
+	 * Erstellt einen neuen Server an einen spezifischen Port
 	 *
-	 * @param calc the calc
+	 * @param port der Port an dem der Server lauschen soll
 	 */
-	public Server(Calculator calc) {
-		super(calc);
-		// TODO Auto-generated constructor stub
+	public Server(int port) {
+        AlgorithmCalculator calculator = new AlgorithmCalculator();
+        setCalculator(calculator);
 	}
-
 }
