@@ -31,7 +31,7 @@ public class TestClient {
     @Before
     public void prepare()
             throws URISyntaxException {
-        Server server = new Server();
+        Server server = new Server(1099);
 
         URI serverURI = new URI("localhost:1099");
         worker = new Client(serverURI);

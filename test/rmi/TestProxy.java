@@ -35,7 +35,7 @@ public class TestProxy {
 
         uris.add(new URI("localhost:1099"));
 
-        worker = new Proxy(uris);
+        worker = new Proxy(1099, uris);
     }
 
     @After

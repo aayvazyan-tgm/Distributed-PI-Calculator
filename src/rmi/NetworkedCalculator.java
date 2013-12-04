@@ -15,7 +15,9 @@
  */
 package rmi;
 
-import java.util.LinkedList;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.List;
 import java.net.URI;
 import java.math.BigDecimal;
@@ -28,14 +30,18 @@ public class NetworkedCalculator implements Calculator {
     /** The servers. */
     private List<URI> servers;
 
+    /** The position for roundrobin load balancing */
+    private int position;
+
     /**
-     * creates a emty linkedlist.
+     * creates an emty list
      */
     public NetworkedCalculator(){
-        servers=new LinkedList<URI>();
+        servers=new ArrayList<URI>();
     }
+
     /**
-     * Adds the server.
+     * Adds the server to the load balancer.
      *
      * @param uri the uri to the RMI server
      */
@@ -45,14 +51,30 @@ public class NetworkedCalculator implements Calculator {
 
 
     /**
-     * Pi.
+     * Accesses one of the listed server to ask it for pi
      *
-     * @param anzahlNachkommastellen the anzahl nachkommastellen
-     * @return the big decimal
+     * @param anzahlNachkommastellen decimal places
+     * @return Pi with a given number of decimal places as BigDecimal
      * @see rmi.Calculator#pi(int)
      */
     public BigDecimal pi(int anzahlNachkommastellen) {
-        return null;
-    }
+        BigDecimal pi = null;
 
+        //increment position for load balancing
+        position = (position+1) % servers.size();
+        //next server to access
+        URI server = servers.get(position);
+
+        String name = "Compute";
+        try {
+            Registry registry = LocateRegistry.getRegistry(server.getHost(), server.getPort());
+            Calculator calc = (Calculator) registry.lookup(name);
+            pi = calc.pi(anzahlNachkommastellen);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Todo do
+        }
+
+        return pi;
+    }
 }
