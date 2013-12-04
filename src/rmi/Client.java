@@ -15,20 +15,21 @@
  */
 package rmi;
 
-import java.math.BigDecimal;
+import java.net.URI;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Client.
+ * Instantiates a new client with a NetworkedCalculator.
  */
 public class Client extends AbstractWorker {
 
 	/**
-	 * Instantiates a new client.
+	 * Instantiates a new client with a NetworkedCalculator with the given URI.
 	 *
-	 * @param calc the calc
+	 * @param serverUri is the URI that directs to the server that provides the pi calculation function.
 	 */
-	public Client(Calculator calc) {
-		super(calc);
+	public Client(URI serverUri) {
+		NetworkedCalculator nw= new NetworkedCalculator();
+		nw.addServer(serverUri);
+		this.setCalculator(nw);
 	}
 }

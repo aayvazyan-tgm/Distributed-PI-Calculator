@@ -15,26 +15,32 @@
  */
 package rmi;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.net.URI;
 import java.math.BigDecimal;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class NetworkedCalculator.
+ * The Class NetworkedCalculator connects to the given URIs using the round robin method.
  */
 public class NetworkedCalculator implements Calculator {
 
 	/** The servers. */
-	private List servers;
+	private List<URI> servers;
 
+	/**
+	 * creates a emty linkedlist.
+	 */
+	public NetworkedCalculator(){
+		servers=new LinkedList<URI>();
+	}
 	/**
 	 * Adds the server.
 	 *
-	 * @param uri the uri
+	 * @param uri the uri to the RMI server
 	 */
 	public void addServer(URI uri) {
-
+		servers.add(uri);
 	}
 
 
