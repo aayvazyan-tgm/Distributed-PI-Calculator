@@ -22,14 +22,14 @@ import java.net.URI;
  */
 public class Client extends AbstractWorker {
 
-	/**
-	 * Instantiates a new client with a NetworkedCalculator with the given URI.
-	 *
-	 * @param serverUri is the URI that directs to the server that provides the pi calculation function.
-	 */
-	public Client(URI serverUri) {
-		NetworkedCalculator nw= new NetworkedCalculator();
-		nw.addServer(serverUri);
-		this.setCalculator(nw);
-	}
+    /**
+     * Instantiates a new client with a NetworkedCalculator with the given URI.
+     *
+     * @param serverUri is the URI that directs to the server that provides the pi calculation function.
+     */
+    public Client(URI serverUri) {
+        NetworkedCalculator nw= new NetworkedCalculator();
+        nw.addServer(serverUri);
+        this.setCalculator(nw);
+    }
 }

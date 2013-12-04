@@ -25,34 +25,34 @@ import java.math.BigDecimal;
  */
 public class NetworkedCalculator implements Calculator {
 
-	/** The servers. */
-	private List<URI> servers;
+    /** The servers. */
+    private List<URI> servers;
 
-	/**
-	 * creates a emty linkedlist.
-	 */
-	public NetworkedCalculator(){
-		servers=new LinkedList<URI>();
-	}
-	/**
-	 * Adds the server.
-	 *
-	 * @param uri the uri to the RMI server
-	 */
-	public void addServer(URI uri) {
-		servers.add(uri);
-	}
+    /**
+     * creates a emty linkedlist.
+     */
+    public NetworkedCalculator(){
+        servers=new LinkedList<URI>();
+    }
+    /**
+     * Adds the server.
+     *
+     * @param uri the uri to the RMI server
+     */
+    public void addServer(URI uri) {
+        servers.add(uri);
+    }
 
 
-	/**
-	 * Pi.
-	 *
-	 * @param anzahlNachkommastellen the anzahl nachkommastellen
-	 * @return the big decimal
-	 * @see rmi.Calculator#pi(int)
-	 */
-	public BigDecimal pi(int anzahlNachkommastellen) {
-		return null;
-	}
+    /**
+     * Pi.
+     *
+     * @param anzahlNachkommastellen the anzahl nachkommastellen
+     * @return the big decimal
+     * @see rmi.Calculator#pi(int)
+     */
+    public BigDecimal pi(int anzahlNachkommastellen) {
+        return null;
+    }
 
 }
