@@ -21,12 +21,10 @@ public abstract class AbstractWorker {
 
 	private Calculator calculator;
 
-	public void setCalculator(Calculator calc) {
-
+	public AbstractWorker(Calculator calc){
+		this.calculator=calc;
 	}
 
-	public BigDecimal pi() {
-		return null;
-	}
+	public abstract BigDecimal pi();
 
 }
