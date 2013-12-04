@@ -19,16 +19,30 @@ import java.util.List;
 import java.net.URI;
 import java.math.BigDecimal;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NetworkedCalculator.
+ */
 public class NetworkedCalculator implements Calculator {
 
+	/** The servers. */
 	private List servers;
 
+	/**
+	 * Adds the server.
+	 *
+	 * @param uri the uri
+	 */
 	public void addServer(URI uri) {
 
 	}
 
 
 	/**
+	 * Pi.
+	 *
+	 * @param anzahlNachkommastellen the anzahl nachkommastellen
+	 * @return the big decimal
 	 * @see rmi.Calculator#pi(int)
 	 */
 	public BigDecimal pi(int anzahlNachkommastellen) {

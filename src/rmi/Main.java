@@ -15,10 +15,20 @@
  */
 package rmi;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Main.
+ */
 public class Main {
 
+	/** The worker. */
 	private AbstractWorker worker;
 
+	/**
+	 * Main.
+	 *
+	 * @param args the args
+	 */
 	public void main(String args) {
 
 	}

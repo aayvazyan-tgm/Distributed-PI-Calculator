@@ -17,10 +17,18 @@ package rmi;
 
 import java.math.BigDecimal;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AlgorithmCalculator.
+ */
 public class AlgorithmCalculator implements Calculator {
 
 
 	/**
+	 * Pi.
+	 *
+	 * @param anzahlNachkommastellen the anzahl nachkommastellen
+	 * @return the big decimal
 	 * @see rmi.Calculator#pi(int)
 	 */
 	public BigDecimal pi(int anzahlNachkommastellen) {

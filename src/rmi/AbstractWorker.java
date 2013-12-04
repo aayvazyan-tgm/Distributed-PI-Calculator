@@ -17,14 +17,32 @@ package rmi;
 
 import java.math.BigDecimal;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AbstractWorker.
+ */
 public abstract class AbstractWorker {
 
+	/** The calculator. */
 	private Calculator calculator;
 
+	/**
+	 * Instantiates a new abstract worker.
+	 *
+	 * @param calc the calc
+	 */
 	public AbstractWorker(Calculator calc){
 		this.calculator=calc;
 	}
 
-	public abstract BigDecimal pi();
+	/**
+	 * Pi.
+	 *
+	 * @param anzahlNachkommastellen the anzahl nachkommastellen
+	 * @return the big decimal
+	 */
+	public BigDecimal pi(int anzahlNachkommastellen){
+		return calculator.pi(anzahlNachkommastellen);
+	}
 
 }

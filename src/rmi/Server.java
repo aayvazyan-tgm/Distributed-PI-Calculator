@@ -15,6 +15,20 @@
  */
 package rmi;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Server.
+ */
 public class Server extends AbstractWorker {
+
+	/**
+	 * Instantiates a new server.
+	 *
+	 * @param calc the calc
+	 */
+	public Server(Calculator calc) {
+		super(calc);
+		// TODO Auto-generated constructor stub
+	}
 
 }

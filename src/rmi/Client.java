@@ -15,6 +15,20 @@
  */
 package rmi;
 
+import java.math.BigDecimal;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Client.
+ */
 public class Client extends AbstractWorker {
 
+	/**
+	 * Instantiates a new client.
+	 *
+	 * @param calc the calc
+	 */
+	public Client(Calculator calc) {
+		super(calc);
+	}
 }

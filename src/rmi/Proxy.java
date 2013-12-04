@@ -15,6 +15,20 @@
  */
 package rmi;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Proxy.
+ */
 public class Proxy extends AbstractWorker {
+
+	/**
+	 * Instantiates a new proxy.
+	 *
+	 * @param calc the calc
+	 */
+	public Proxy(Calculator calc) {
+		super(calc);
+		// TODO Auto-generated constructor stub
+	}
 
 }
