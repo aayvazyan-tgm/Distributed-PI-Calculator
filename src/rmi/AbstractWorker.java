@@ -39,4 +39,8 @@ public abstract class AbstractWorker {
     public void setCalculator(Calculator calculator) {
         this.calculator = calculator;
     }
+
+    public Calculator getCalculator() {
+        return calculator;
+    }
 }

@@ -15,13 +15,17 @@
  */
 package rmi;
 
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+
 /**
  * The Class Server.
  */
 public class Server extends AbstractWorker {
-
 	/**
-	 * Erstellt einen neuen Server an einen spezifischen Port
+	 * Erstellt einen neuen Server an einen spezifizierten Port
 	 *
 	 * @param port der Port an dem der Server lauschen soll
 	 */
@@ -29,4 +33,12 @@ public class Server extends AbstractWorker {
         AlgorithmCalculator calculator = new AlgorithmCalculator();
         setCalculator(calculator);
 	}
+
+    public void serve(int port) throws RemoteException {
+        String name = "Calculator";
+        Calculator stub;
+        stub = (Calculator) UnicastRemoteObject.exportObject(this.getCalculator(), 0);
+        Registry registry = LocateRegistry.getRegistry();
+        registry.rebind(name, stub);
+    }
 }

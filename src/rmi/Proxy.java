@@ -16,6 +16,10 @@
 package rmi;
 
 // TODO: Auto-generated Javadoc
+
+import java.net.URI;
+import java.util.List;
+
 /**
  * The Class Proxy.
  */
@@ -23,10 +27,19 @@ public class Proxy extends Server {
 
 	/**
 	 * Instantiates a new proxy.
-	 *
-	 * @param calc the calc
+     *
+     * @param port
+     * @param servers
 	 */
-	public Proxy(Calculator calc) {
+	public Proxy(int port, List<URI> servers) {
+        super(port);
 
+        NetworkedCalculator calculator = new NetworkedCalculator();
+
+        for(URI uri : servers) {
+            calculator.addServer(uri);
+        }
+
+        super.setCalculator(calculator);
 	}
 }

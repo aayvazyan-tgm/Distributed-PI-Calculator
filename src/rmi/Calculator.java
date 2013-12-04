@@ -16,12 +16,13 @@
 package rmi;
 
 import java.math.BigDecimal;
+import java.rmi.Remote;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Interface Calculator.
  */
-public interface Calculator {
+public interface Calculator extends Remote {
 
 	/**
 	 * Pi.
