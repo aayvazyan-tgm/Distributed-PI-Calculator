@@ -31,11 +31,6 @@ public class TestAbstractWorker {
     }
 
     @Test
-    public void test_setCalculator() {
-        //Todo fill stub
-    }
-
-    @Test
     public void test_pi() {
         //Todo fill stub
     }
