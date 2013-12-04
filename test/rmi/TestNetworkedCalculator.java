@@ -31,7 +31,7 @@ public class TestNetworkedCalculator {
     @Before
     public void prepare()
             throws URISyntaxException {
-        Server server = new Server();
+        Server server = new Server(1099);
 
         calculator  = new NetworkedCalculator();
 
@@ -65,16 +65,16 @@ public class TestNetworkedCalculator {
 
         resultZero = calculator.pi(0);
 
-        assertTrue("pi ohne Nachkommastellen ist 3", resultZero.doubleValue() == 3.d);
+        assertEquals("pi ohne Nachkommastellen ist 3", new BigDecimal(3), resultZero);
     }
 
     @Test
-    public void testTen_pi() {
+    public void testSixteen_pi() {
         BigDecimal resultTen = null;
-        BigDecimal piTen = new BigDecimal(3.1415926535d);
+        BigDecimal piTen = new BigDecimal("3.1415926535897932");
 
-        resultTen = calculator.pi(10);
+        resultTen = calculator.pi(16);
 
-        assertEquals("Die ersten Zehn stellen von PI sollten der erwartung entsprechen", resultTen, piTen);
+        assertEquals("Die ersten Zehn stellen von PI sollten der erwartung entsprechen", piTen, resultTen);
     }
 }
