@@ -15,23 +15,58 @@
  */
 package rmi;
 
+import static org.junit.Assert.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 public class TestAlgorithmCalculator {
+    private AlgorithmCalculator algorithmCalculator;
+
     @Before
     public void prepare() {
-
+        algorithmCalculator = new AlgorithmCalculator();
     }
 
     @After
     public void after() {
-
+        //nothing
     }
 
     @Test
-    public void test_pi() {
-        //Todo fill stub
+    public void testNegative_pi() {
+        BigDecimal resultNegativ = null;
+        Exception exspected = null;
+
+        try {
+            resultNegativ = algorithmCalculator.pi(-1);
+        } catch (Exception e) {
+            exspected = e;
+        }
+
+        assertNull("AlgorithmCalculator#pi(int) sollte bei negativen Parameter kein Ergebnis liefern", resultNegativ);
+        assertNotNull("AlgorithmCalculator#pi(int) sollte bei negativen Parameter eine Exception liefern", exspected);
+    }
+
+    @Test
+    public void testZero_pi() {
+        BigDecimal resultZero = null;
+
+        resultZero = algorithmCalculator.pi(0);
+
+        assertTrue("pi ohne Nachkommastellen ist 3", resultZero.doubleValue() == 3.d);
+    }
+
+    @Test
+    public void testTen_pi() {
+        BigDecimal resultTen = null;
+        BigDecimal piTen = new BigDecimal(3.1415926535d);
+
+        resultTen = algorithmCalculator.pi(10);
+
+        assertEquals("Die ersten Zehn stellen von PI sollten der erwartung entsprechen", resultTen, piTen);
     }
 }
