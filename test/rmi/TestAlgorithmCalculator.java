@@ -24,11 +24,11 @@ import org.junit.Test;
 import java.math.BigDecimal;
 
 public class TestAlgorithmCalculator {
-    private AlgorithmCalculator algorithmCalculator;
+    private AlgorithmCalculator calculator;
 
     @Before
     public void prepare() {
-        algorithmCalculator = new AlgorithmCalculator();
+        calculator = new AlgorithmCalculator();
     }
 
     @After
@@ -42,7 +42,7 @@ public class TestAlgorithmCalculator {
         Exception exspected = null;
 
         try {
-            resultNegativ = algorithmCalculator.pi(-1);
+            resultNegativ = calculator.pi(-1);
         } catch (Exception e) {
             exspected = e;
         }
@@ -55,7 +55,7 @@ public class TestAlgorithmCalculator {
     public void testZero_pi() {
         BigDecimal resultZero = null;
 
-        resultZero = algorithmCalculator.pi(0);
+        resultZero = calculator.pi(0);
 
         assertTrue("pi ohne Nachkommastellen ist 3", resultZero.doubleValue() == 3.d);
     }
@@ -65,7 +65,7 @@ public class TestAlgorithmCalculator {
         BigDecimal resultTen = null;
         BigDecimal piTen = new BigDecimal(3.1415926535d);
 
-        resultTen = algorithmCalculator.pi(10);
+        resultTen = calculator.pi(10);
 
         assertEquals("Die ersten Zehn stellen von PI sollten der erwartung entsprechen", resultTen, piTen);
     }
