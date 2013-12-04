@@ -31,6 +31,10 @@ public class TestNetworkedCalculator {
     @Before
     public void prepare()
             throws URISyntaxException {
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+
         Server server = new Server(1099);
 
         calculator  = new NetworkedCalculator();
@@ -75,6 +79,6 @@ public class TestNetworkedCalculator {
 
         resultTen = calculator.pi(16);
 
-        assertEquals("Die ersten Zehn stellen von PI sollten der erwartung entsprechen", piTen, resultTen);
+        assertEquals("Die ersten 16 Stellen von PI sollten der erwartung entsprechen", piTen, resultTen);
     }
 }

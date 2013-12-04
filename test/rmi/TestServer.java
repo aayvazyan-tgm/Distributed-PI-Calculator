@@ -28,6 +28,10 @@ public class TestServer {
 
     @Before
     public void prepare() {
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+
         worker = new Server(1099);
     }
 
@@ -67,6 +71,6 @@ public class TestServer {
 
         resultTen = worker.pi(16);
 
-        assertEquals("Die ersten Zehn stellen von PI sollten der erwartung entsprechen", piTen, resultTen);
+        assertEquals("Die ersten 16 Stellen von PI sollten der erwartung entsprechen", piTen, resultTen);
     }
 }
