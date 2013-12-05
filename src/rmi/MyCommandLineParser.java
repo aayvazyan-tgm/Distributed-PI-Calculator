@@ -2,6 +2,7 @@ package rmi;
 
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.cli2.*;
@@ -17,55 +18,40 @@ import org.apache.commons.cli2.commandline.Parser;
  */
 public class MyCommandLineParser {
 
-	
 	public URI clientURI;
 	public int piDigits;
-	public URI[] proxyURIs;
+	public ArrayList<URI> proxyURIs;
 	public int port;
 	private boolean isServer=false;
 	private boolean isProxy=false;
 	private boolean isClient=false;
-	
-	/**
-	 * Verarbeitet die argumente.
-	 *
-	 * @param args - Die zu parsende Argumente.
-	 * @throws OptionException the option exception
-	 */
-	public static void main(String args[]){
-		try {
-			MyCommandLineParser myp= new MyCommandLineParser(args);
-		} catch (OptionException e) {
-			e.printStackTrace();
-		}
-	}
+
+    /**
+     * Verarbeitet die argumente.
+     *
+     * @param args - Die zu parsende Argumente.
+     * @throws OptionException the option exception
+     */
 	public MyCommandLineParser(String[] args) throws OptionException{
 
 		DefaultOptionBuilder obuilder = new DefaultOptionBuilder();
 		ArgumentBuilder abuilder = new ArgumentBuilder();
 		GroupBuilder gbuilder = new GroupBuilder();
-		
-		
-		
-		
+
 		/*
 		 * Hier werden die zu verarbeitenden parameter angegeben.
 		 */
-		
 		Option clientkOption = obuilder.withLongName("client").withShortName("c").withRequired(false).withDescription("ist ein Client")
 				.withArgument(abuilder.withName("uri , piDigits").withMinimum(2).withMaximum(2).create())
 				.create();
-		
-		
+
 		Option serverOption = obuilder.withLongName("server").withShortName("s").withRequired(false).withDescription("ist ein Server")
 				.withArgument(abuilder.withName("port").withMinimum(1).withMaximum(1).create()).create();
-		
 		
 		Option proxyOption = obuilder.withLongName("proxy").withShortName("p").withRequired(false).withDescription("ist ein Proxy")
 				.withArgument(abuilder.withName("port, URI1<, URI2,...URI100>").withMinimum(1).withMaximum(101).create())
 				.create();
 
-		
 		/*
 		 * erstellen einer Optionsgruppe welche an den parser weitergegeben wird.
 		 */
@@ -77,8 +63,7 @@ public class MyCommandLineParser {
 		
 		Parser parser = new Parser();
 		parser.setGroup(options);
-		
-		
+
 		//verarbeiten der argumente
 		CommandLine cl = parser.parse(args);
 		
@@ -118,12 +103,12 @@ public class MyCommandLineParser {
 				try{
 					//parsen
 					this.port=Integer.parseInt(rawPort);
-					this.proxyURIs=new URI[l.size()-1];
+					this.proxyURIs = new ArrayList<URI>();
 					for(int i=1;i<l.size();i++){
 						URI u=new URI(l.get(i));
-						proxyURIs[i-1]=u;
-					}
-				}catch(Exception e){
+						proxyURIs.add(u);
+			        }
+				} catch(Exception e) {
 					e.printStackTrace();
 					System.err.println("There was a parsing error, check your input!");
 					System.exit(-1);

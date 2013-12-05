@@ -16,21 +16,48 @@
 package rmi;
 
 // TODO: Auto-generated Javadoc
+
+import org.apache.commons.cli2.OptionException;
+
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+
 /**
  * The Class Main.
  */
 public class Main {
-
-	/** The worker. */
-	private AbstractWorker worker;
 
 	/**
 	 * Main.
 	 *
 	 * @param args the args
 	 */
-	public void main(String args) {
+	public static void main(String[] args) {
+        MyCommandLineParser parser = null;
+        try {
+            parser = new MyCommandLineParser(args);
+        } catch (OptionException e) {
+            e.printStackTrace();
+        }
 
-	}
-
+        if(parser.isClient() && !(parser.isProxy() || parser.isServer())) {
+            Client client = new Client(parser.clientURI);
+        } else
+        if(parser.isServer() && !(parser.isProxy() || parser.isClient())) {
+            Server server = new Server(parser.port);
+            try {
+                server.serve();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        } else
+        if(parser.isProxy() && !(parser.isClient() || parser.isServer())) {
+            Proxy proxy = new Proxy(parser.port, parser.proxyURIs);
+            try {
+                proxy.serve();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
