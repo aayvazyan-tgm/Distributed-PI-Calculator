@@ -22,6 +22,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ public class TestProxy {
     private Proxy worker;
 
     @Before
-    public void prepare() throws URISyntaxException, RemoteException {
+    public void prepare() throws URISyntaxException, RemoteException, AlreadyBoundException {
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }

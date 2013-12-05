@@ -22,6 +22,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 
 import static org.junit.Assert.*;
@@ -31,7 +32,7 @@ public class TestNetworkedCalculator {
 
     @Before
     public void prepare()
-            throws URISyntaxException, RemoteException {
+            throws URISyntaxException, RemoteException, AlreadyBoundException {
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }

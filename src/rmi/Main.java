@@ -15,19 +15,20 @@
  */
 package rmi;
 
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 
 /**
  * The Class Main.
  */
 public class Main {
-
 	/**
 	 * Main.
 	 *
 	 * @param args the args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws RemoteException, AlreadyBoundException {
+
         /* SecurityManager */
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());

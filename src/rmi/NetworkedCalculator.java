@@ -73,7 +73,7 @@ public class NetworkedCalculator implements Calculator {
         String name = "Calculator";
         try {
             Registry registry = LocateRegistry.getRegistry(server.getHost(), server.getPort());
-            Calculator calc = (Calculator) registry.lookup(name);
+            Calculator calc = (Calculator) registry.lookup(name + server.getPort());
             pi = calc.pi(anzahlNachkommastellen);
         } catch (NotBoundException e) {
             e.printStackTrace();

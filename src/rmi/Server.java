@@ -15,6 +15,7 @@
  */
 package rmi;
 
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -37,11 +38,22 @@ public class Server extends AbstractWorker {
         this.port = port;
 	}
 
-    public void serve() throws RemoteException {
-        String name = "Calculator";
+    public void serve() throws RemoteException, AlreadyBoundException {
+        Registry registry = null;
+
+        try {
+            registry = LocateRegistry.getRegistry();
+        } catch (RemoteException re) {
+            //might happen, no big deal
+            //a attempt to create a new registry will be made
+        }
+        if(registry == null) {
+            registry = LocateRegistry.createRegistry(port);
+        }
+
+        String name = "Calculator" + port;
         Calculator stub;
         stub = (Calculator) UnicastRemoteObject.exportObject(this.getCalculator(), port);
-        Registry registry = LocateRegistry.getRegistry();
-        registry.rebind(name, stub);
+        registry.bind(name, stub);
     }
 }
