@@ -15,6 +15,7 @@
  */
 package rmi;
 
+import java.net.URISyntaxException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 
@@ -27,7 +28,7 @@ public class Main {
 	 *
 	 * @param args the args
 	 */
-	public static void main(String[] args) throws RemoteException, AlreadyBoundException {
+	public static void main(String[] args) throws RemoteException, AlreadyBoundException, URISyntaxException {
 
         /* SecurityManager */
         if (System.getSecurityManager() == null) {
@@ -40,6 +41,7 @@ public class Main {
         switch (parser.getProgramType()) {
             case CLIENT:
                 Client client = new Client(parser.clientURI);
+                System.out.println(client.pi(parser.piDigits));
                 break;
             case SERVER:
                 Server server = new Server(parser.port);

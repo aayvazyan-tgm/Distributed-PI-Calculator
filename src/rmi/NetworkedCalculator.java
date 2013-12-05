@@ -15,14 +15,14 @@
  */
 package rmi;
 
+import java.math.BigDecimal;
+import java.net.URI;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
-import java.net.URI;
-import java.math.BigDecimal;
 
 /**
  * The Class NetworkedCalculator connects to the given URIs using the round robin method.
@@ -72,8 +72,10 @@ public class NetworkedCalculator implements Calculator {
 
         String name = "Calculator";
         try {
-            Registry registry = LocateRegistry.getRegistry(server.getHost(), server.getPort());
-            Calculator calc = (Calculator) registry.lookup(name + server.getPort());
+            String host = server.getScheme(); //....
+            int port = Integer.parseInt(server.getSchemeSpecificPart()); // ....//
+            Registry registry = LocateRegistry.getRegistry(host, port);
+            Calculator calc = (Calculator) registry.lookup(name);
             pi = calc.pi(anzahlNachkommastellen);
         } catch (NotBoundException e) {
             e.printStackTrace();

@@ -11,6 +11,7 @@ import org.apache.commons.cli2.builder.GroupBuilder;
 import org.apache.commons.cli2.commandline.Parser;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -165,6 +166,21 @@ public class MyCommandLineParser {
 			System.exit(-1);
 		}
 	}
+
+    /*
+     * For internal use
+     */
+    private URI strToUri(String hostColonPort)
+            throws URISyntaxException {
+        String[] split = hostColonPort.split(":");
+
+        if(split.length != 2) {
+            throw new URISyntaxException("Syntax must be host:port", hostColonPort);
+        }
+
+        return new URI(hostColonPort);
+    }
+
 	public ProgramType getProgramType(){
 		if(isServer)return ProgramType.SERVER;
 		if(isProxy)return ProgramType.PROXY;
