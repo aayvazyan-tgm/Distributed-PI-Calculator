@@ -58,7 +58,8 @@ public class TestClient {
             exspected = e;
         }
 
-        assertEquals("Client#pi(int) sollte bei negativen Parameter 0 liefern", new BigDecimal(0), resultNegativ);
+        assertNull("Client#pi(int) sollte bei negativen Parameter kein Ergebniss liefern", resultNegativ);
+        assertNotNull("Client#pi(int) sollte bei negativen Parameter eine Exception werfen", exspected);
     }
 
     @Test

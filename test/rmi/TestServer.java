@@ -53,7 +53,9 @@ public class TestServer {
             exspected = e;
         }
 
-        assertEquals("Serverr#pi(int) sollte bei negativen Parameter 0 liefern", new BigDecimal(0), resultNegativ);    }
+        assertNull("Server#pi(int) sollte bei negativen Parameter kein Ergebniss liefern", resultNegativ);
+        assertNotNull("Server#pi(int) sollte bei negativen Parameter eine Exception werfen", exspected);
+    }
 
     @Test
     public void testZero_pi() throws RemoteException {

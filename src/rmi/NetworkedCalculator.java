@@ -15,6 +15,8 @@
  */
 package rmi;
 
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
@@ -55,9 +57,12 @@ public class NetworkedCalculator implements Calculator {
      *
      * @param anzahlNachkommastellen decimal places
      * @return Pi with a given number of decimal places as BigDecimal
+     *
+     *
+     *
      * @see rmi.Calculator#pi(int)
      */
-    public BigDecimal pi(int anzahlNachkommastellen) {
+    public BigDecimal pi(int anzahlNachkommastellen) throws RemoteException {
         BigDecimal pi = null;
 
         //increment position for load balancing
@@ -70,9 +75,8 @@ public class NetworkedCalculator implements Calculator {
             Registry registry = LocateRegistry.getRegistry(server.getHost(), server.getPort());
             Calculator calc = (Calculator) registry.lookup(name);
             pi = calc.pi(anzahlNachkommastellen);
-        } catch (Exception e) {
+        } catch (NotBoundException e) {
             e.printStackTrace();
-            //Todo do
         }
 
         return pi;

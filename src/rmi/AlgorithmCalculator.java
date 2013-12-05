@@ -17,6 +17,7 @@ package rmi;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.rmi.RemoteException;
 
 /**
  * The Class AlgorithmCalculator.
@@ -104,7 +105,12 @@ public class AlgorithmCalculator implements Calculator, Serializable {
     /**
      * Berechnet pi auf die genauigkeit der nachkommastellen
      */
-	public BigDecimal pi(int anzahlNachkommastellen) {
+	public BigDecimal pi(int anzahlNachkommastellen) throws RemoteException {
+        if(anzahlNachkommastellen < 0) {
+            throw new RemoteException("Caused by",
+                    new NumberFormatException("Param must not be < 0, it is: " + anzahlNachkommastellen));
+        }
+
 		return computePi(anzahlNachkommastellen);
 	}
 

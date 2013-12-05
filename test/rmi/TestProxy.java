@@ -62,7 +62,8 @@ public class TestProxy {
             exspected = e;
         }
 
-        assertEquals("Proxy#pi(int) sollte bei negativen Parameter 0 liefern", new BigDecimal(0), resultNegativ);
+        assertNull("Proxy#pi(int) sollte bei negativen Parameter kein Ergebniss liefern", resultNegativ);
+        assertNotNull("Proxy#pi(int) sollte bei negativen Parameter eine Exception werfen", exspected);
     }
 
     @Test

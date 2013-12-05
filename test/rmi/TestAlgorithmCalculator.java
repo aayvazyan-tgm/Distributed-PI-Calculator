@@ -15,13 +15,16 @@
  */
 package rmi;
 
-import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.rmi.RemoteException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class TestAlgorithmCalculator {
     private AlgorithmCalculator calculator;
@@ -51,11 +54,12 @@ public class TestAlgorithmCalculator {
             exspected = e;
         }
 
-        assertEquals("AlgorithmCalculator#pi(int) sollte bei negativen Parameter 0 liefern", new BigDecimal(0), resultNegativ);
+        assertNull("AlgorithmCalculator#pi(int) sollte bei negativen Parameter kein Ergebniss liefern", resultNegativ);
+        assertNotNull("AlgorithmCalculator#pi(int) sollte bei negativen Parameter eine Exception werfen", exspected);
     }
 
     @Test
-    public void testZero_pi() {
+    public void testZero_pi() throws RemoteException {
         BigDecimal resultZero = null;
 
         resultZero = calculator.pi(0);
@@ -64,7 +68,7 @@ public class TestAlgorithmCalculator {
     }
 
     @Test
-    public void testSixteen_pi() {
+    public void testSixteen_pi() throws RemoteException {
         BigDecimal resultTen = null;
         BigDecimal piTen = new BigDecimal("3.1415926535897932");
 

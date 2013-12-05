@@ -61,11 +61,12 @@ public class TestNetworkedCalculator {
             exspected = e;
         }
 
-        assertEquals("NetworkedCalculator#pi(int) sollte bei negativen Parameter 0 liefern", new BigDecimal(0), resultNegativ);
+        assertNull("NetworkedCalculator#pi(int) sollte bei negativen Parameter kein Ergebniss liefern", resultNegativ);
+        assertNotNull("NetworkedCalculator#pi(int) sollte bei negativen Parameter eine Exception werfen", exspected);
     }
 
     @Test
-    public void testZero_pi() {
+    public void testZero_pi() throws RemoteException {
         BigDecimal resultZero = null;
 
         resultZero = calculator.pi(0);
@@ -74,7 +75,7 @@ public class TestNetworkedCalculator {
     }
 
     @Test
-    public void testSixteen_pi() {
+    public void testSixteen_pi() throws RemoteException {
         BigDecimal resultTen = null;
         BigDecimal piTen = new BigDecimal("3.1415926535897932");
 
