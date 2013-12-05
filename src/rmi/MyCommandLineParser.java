@@ -18,7 +18,9 @@ import org.apache.commons.cli2.util.HelpFormatter;
  * @version 20.11.2013
  */
 public class MyCommandLineParser {
-
+	public enum ProgramType{
+		SERVER,CLIENT,PROXY,NONE
+	}
 	public URI clientURI;
 	public int piDigits;
 	public ArrayList<URI> proxyURIs;
@@ -26,11 +28,14 @@ public class MyCommandLineParser {
 	private boolean isServer=false;
 	private boolean isProxy=false;
 	private boolean isClient=false;
+	private final static String synopsis="Aviable options:\n" +
+			"--client <URI> <piDigits>\n" +
+			"--server <port>\n" +
+			"--proxy <port> <URIs...>\n";
 	public static void main(String[] args){
 		try {
 			new MyCommandLineParser(args);
-		} catch (OptionException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -40,7 +45,7 @@ public class MyCommandLineParser {
      * @param args - Die zu parsende Argumente.
      * @throws OptionException the option exception
      */
-	public MyCommandLineParser(String[] args) throws OptionException{
+	public MyCommandLineParser(String[] args) {
 
 		DefaultOptionBuilder obuilder = new DefaultOptionBuilder();
 		ArgumentBuilder abuilder = new ArgumentBuilder();
@@ -79,16 +84,17 @@ public class MyCommandLineParser {
 		parser.setGroup(options);
 
 		//verarbeiten der argumente
-		CommandLine cl = parser.parse(args);
-		if(cl==null)System.exit(-1);//parsing error
-		//auslesen der argumente
 		try{
-			if(cl.hasOption(helpOption)){
-				System.out.println("Aviable options:\n" +
-						"-client <URI> <piDigits>\n" +
-						"-server <port>\n" +
-						"-proxy <port> <URIs...>\n");
-			}
+		CommandLine cl = parser.parse(args);
+		if(cl==null){
+			System.err.println("parsing error");
+			System.out.println(synopsis);
+			System.exit(-1);//parsing error
+		}
+		//auslesen der argumente
+			/*if(cl.hasOption(helpOption)){
+				System.out.println(synopsis);
+			}*/
 			if(cl.hasOption(clientkOption)) {
 				isClient=true;
 				String rawURI= (String) cl.getValues(clientkOption).get(0);
@@ -131,22 +137,40 @@ public class MyCommandLineParser {
 				} catch(Exception e) {
 					e.printStackTrace();
 					System.err.println("There was a parsing error, check your input!");
+					System.out.println(synopsis);
 					System.exit(-1);
 				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 			System.err.println("Check your arguments!");
+			System.out.println(synopsis);
+			System.exit(-1);
+		}
+		//the user may only input a server, proxy or client at once.
+		boolean isSet=false;
+		if(isClient){
+			//if(isSet)System.out.println(synopsis); will never be the case
+			isSet=true;
+		}
+		if(isProxy){
+			if(isSet)System.out.println(synopsis);
+			isSet=true;
+		}
+		if(isServer){
+			if(isSet)System.out.println(synopsis);
+			isSet=true;
+		}
+		//if the user did not select a server/proxy/client print the synopsis
+		if(!isSet) {
+			System.out.println(synopsis);
 			System.exit(-1);
 		}
 	}
-	public boolean isClient(){
-		return isClient;
-	}
-	public boolean isProxy(){
-		return isProxy;
-	}
-	public boolean isServer(){
-		return isServer;
+	public Enum<ProgramType> getProgramType(){
+		if(isServer)return ProgramType.SERVER;
+		if(isProxy)return ProgramType.PROXY;
+		if(isClient)return ProgramType.CLIENT;
+		return ProgramType.NONE;//Should never happen
 	}
 }
