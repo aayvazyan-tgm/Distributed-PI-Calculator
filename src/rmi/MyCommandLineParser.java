@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.commons.cli2.*;
 import org.apache.commons.cli2.builder.*;
 import org.apache.commons.cli2.commandline.Parser;
+import org.apache.commons.cli2.util.HelpFormatter;
 
 
 
@@ -25,7 +26,14 @@ public class MyCommandLineParser {
 	private boolean isServer=false;
 	private boolean isProxy=false;
 	private boolean isClient=false;
-
+	public static void main(String[] args){
+		try {
+			new MyCommandLineParser(args);
+		} catch (OptionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     /**
      * Verarbeitet die argumente.
      *
@@ -41,17 +49,19 @@ public class MyCommandLineParser {
 		/*
 		 * Hier werden die zu verarbeitenden parameter angegeben.
 		 */
-		Option clientkOption = obuilder.withLongName("client").withShortName("c").withRequired(false).withDescription("ist ein Client")
+		Option clientkOption = obuilder.withLongName("client").withShortName("c").withRequired(false).withDescription("is a Client")
 				.withArgument(abuilder.withName("uri , piDigits").withMinimum(2).withMaximum(2).create())
 				.create();
 
-		Option serverOption = obuilder.withLongName("server").withShortName("s").withRequired(false).withDescription("ist ein Server")
+		Option serverOption = obuilder.withLongName("server").withShortName("s").withRequired(false).withDescription("is a Server")
 				.withArgument(abuilder.withName("port").withMinimum(1).withMaximum(1).create()).create();
 		
-		Option proxyOption = obuilder.withLongName("proxy").withShortName("p").withRequired(false).withDescription("ist ein Proxy")
-				.withArgument(abuilder.withName("port, URI1<, URI2,...URI100>").withMinimum(1).withMaximum(101).create())
+		Option proxyOption = obuilder.withLongName("proxy").withShortName("p").withRequired(false).withDescription("is a Proxy")
+				.withArgument(abuilder.withName("port, URI").withMinimum(1).withMaximum(101).create())
 				.create();
-
+		Option helpOption = obuilder.withLongName("help").withShortName("h").withRequired(false).withDescription("help")
+				.withArgument(abuilder.withName("help").create())
+				.create();
 		/*
 		 * erstellen einer Optionsgruppe welche an den parser weitergegeben wird.
 		 */
@@ -59,16 +69,26 @@ public class MyCommandLineParser {
 				.withOption(clientkOption)
 				.withOption(proxyOption)
 				.withOption(serverOption)
+				.withOption(helpOption)
 				.create();
+		
+		Parser p = new Parser();
+		p.setGroup(options);
 		
 		Parser parser = new Parser();
 		parser.setGroup(options);
 
 		//verarbeiten der argumente
 		CommandLine cl = parser.parse(args);
-		
+		if(cl==null)System.exit(-1);//parsing error
 		//auslesen der argumente
 		try{
+			if(cl.hasOption(helpOption)){
+				System.out.println("Aviable options:\n" +
+						"-client <URI> <piDigits>\n" +
+						"-server <port>\n" +
+						"-proxy <port> <URIs...>\n");
+			}
 			if(cl.hasOption(clientkOption)) {
 				isClient=true;
 				String rawURI= (String) cl.getValues(clientkOption).get(0);
