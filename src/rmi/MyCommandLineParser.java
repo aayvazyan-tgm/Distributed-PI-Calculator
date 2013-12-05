@@ -36,13 +36,7 @@ public class MyCommandLineParser {
 			"--client <URI> <piDigits>\n" +
 			"--server <port>\n" +
 			"--proxy <port> <URIs...>\n";
-	public static void main(String[] args){
-		try {
-			new MyCommandLineParser(args);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
     /**
      * Verarbeitet die argumente.
      *
