@@ -26,6 +26,7 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class Server extends AbstractWorker {
     private int port;
+    private Calculator stub;
 	/**
 	 * Erstellt einen neuen Server an einen spezifizierten Port
 	 *
@@ -39,21 +40,12 @@ public class Server extends AbstractWorker {
 	}
 
     public void serve() throws RemoteException, AlreadyBoundException {
-        Registry registry = null;
+        Registry registry = LocateRegistry.createRegistry(port);
 
-        try {
-            registry = LocateRegistry.getRegistry();
-        } catch (RemoteException re) {
-            //might happen, no big deal
-            //a attempt to create a new registry will be made
-        }
-        if(registry == null) {
-            registry = LocateRegistry.createRegistry(port);
-        }
-
-        String name = "Calculator" + port;
+        String name = "Calculator";
         Calculator stub;
         stub = (Calculator) UnicastRemoteObject.exportObject(this.getCalculator(), port);
-        registry.bind(name, stub);
+        registry.rebind(name, stub);
+        this.stub = stub;
     }
 }
