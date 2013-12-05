@@ -167,7 +167,7 @@ public class MyCommandLineParser {
 			System.exit(-1);
 		}
 	}
-	public Enum<ProgramType> getProgramType(){
+	public ProgramType getProgramType(){
 		if(isServer)return ProgramType.SERVER;
 		if(isProxy)return ProgramType.PROXY;
 		if(isClient)return ProgramType.CLIENT;

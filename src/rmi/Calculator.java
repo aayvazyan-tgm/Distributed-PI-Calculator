@@ -30,6 +30,5 @@ public interface Calculator extends Remote {
 	 * @param anzahlNachkommastellen the anzahl nachkommastellen
 	 * @return the big decimal
 	 */
-	public abstract BigDecimal pi(int anzahlNachkommastellen);
-
+	public BigDecimal pi(int anzahlNachkommastellen);
 }
