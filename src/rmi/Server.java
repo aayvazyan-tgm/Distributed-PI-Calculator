@@ -40,7 +40,7 @@ public class Server extends AbstractWorker {
     public void serve() throws RemoteException {
         String name = "Calculator";
         Calculator stub;
-        stub = (Calculator) UnicastRemoteObject.exportObject(this.getCalculator(), 0);
+        stub = (Calculator) UnicastRemoteObject.exportObject(this.getCalculator(), port);
         Registry registry = LocateRegistry.getRegistry();
         registry.rebind(name, stub);
     }

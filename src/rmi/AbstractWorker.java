@@ -16,6 +16,7 @@
 package rmi;
 
 import java.math.BigDecimal;
+import java.rmi.RemoteException;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -32,7 +33,7 @@ public abstract class AbstractWorker {
 	 * @param anzahlNachkommastellen the anzahl nachkommastellen
 	 * @return the big decimal
 	 */
-	public BigDecimal pi(int anzahlNachkommastellen){
+	public BigDecimal pi(int anzahlNachkommastellen) throws RemoteException {
 		return calculator.pi(anzahlNachkommastellen);
 	}
 

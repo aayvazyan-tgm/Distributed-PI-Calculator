@@ -56,7 +56,7 @@ public class TestServer {
         assertEquals("Serverr#pi(int) sollte bei negativen Parameter 0 liefern", new BigDecimal(0), resultNegativ);    }
 
     @Test
-    public void testZero_pi() {
+    public void testZero_pi() throws RemoteException {
         BigDecimal resultZero = null;
 
         resultZero = worker.pi(0);
@@ -65,7 +65,7 @@ public class TestServer {
     }
 
     @Test
-    public void testSixteen_pi() {
+    public void testSixteen_pi() throws RemoteException {
         BigDecimal resultTen = null;
         BigDecimal piTen = new BigDecimal("3.1415926535897932");
 

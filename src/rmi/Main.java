@@ -28,6 +28,11 @@ public class Main {
 	 * @param args the args
 	 */
 	public static void main(String[] args) {
+        /* SecurityManager */
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+
         MyCommandLineParser parser = null;
         parser = new MyCommandLineParser(args);
 

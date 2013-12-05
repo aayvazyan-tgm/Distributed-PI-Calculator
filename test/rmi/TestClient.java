@@ -22,6 +22,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.rmi.RemoteException;
 
 import static org.junit.Assert.*;
 
@@ -61,7 +62,7 @@ public class TestClient {
     }
 
     @Test
-    public void testZero_pi() {
+    public void testZero_pi() throws RemoteException {
         BigDecimal resultZero = null;
 
         resultZero = worker.pi(0);
@@ -70,7 +71,7 @@ public class TestClient {
     }
 
     @Test
-    public void testSixteen_pi() {
+    public void testSixteen_pi() throws RemoteException {
         BigDecimal resultTen = null;
         BigDecimal piTen = new BigDecimal("3.1415926535897932");
 
