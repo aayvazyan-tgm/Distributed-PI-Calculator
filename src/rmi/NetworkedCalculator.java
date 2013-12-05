@@ -65,7 +65,7 @@ public class NetworkedCalculator implements Calculator {
         //next server to access
         URI server = servers.get(position);
 
-        String name = "Compute";
+        String name = "Calculator";
         try {
             Registry registry = LocateRegistry.getRegistry(server.getHost(), server.getPort());
             Calculator calc = (Calculator) registry.lookup(name);

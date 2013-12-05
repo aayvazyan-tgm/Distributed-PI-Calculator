@@ -20,6 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.rmi.RemoteException;
 
 import static org.junit.Assert.*;
 
@@ -27,12 +28,13 @@ public class TestServer {
     private Server worker;
 
     @Before
-    public void prepare() {
+    public void prepare() throws RemoteException {
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
 
         worker = new Server(1099);
+        worker.serve();
     }
 
     @After
@@ -51,9 +53,7 @@ public class TestServer {
             exspected = e;
         }
 
-        assertNull("AlgorithmCalculator#pi(int) sollte bei negativen Parameter kein Ergebnis liefern", resultNegativ);
-        assertNotNull("AlgorithmCalculator#pi(int) sollte bei negativen Parameter eine Exception liefern", exspected);
-    }
+        assertEquals("Serverr#pi(int) sollte bei negativen Parameter 0 liefern", new BigDecimal(0), resultNegativ);    }
 
     @Test
     public void testZero_pi() {

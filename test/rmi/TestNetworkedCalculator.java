@@ -22,6 +22,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.rmi.RemoteException;
 
 import static org.junit.Assert.*;
 
@@ -30,12 +31,13 @@ public class TestNetworkedCalculator {
 
     @Before
     public void prepare()
-            throws URISyntaxException {
+            throws URISyntaxException, RemoteException {
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
 
         Server server = new Server(1099);
+        server.serve();
 
         calculator  = new NetworkedCalculator();
 
@@ -59,8 +61,7 @@ public class TestNetworkedCalculator {
             exspected = e;
         }
 
-        assertNull("NetworkedCalculator#pi(int) sollte bei negativen Parameter kein Ergebnis liefern", resultNegativ);
-        assertNotNull("NetworkedCalculator#pi(int) sollte bei negativen Parameter eine Exception liefern", exspected);
+        assertEquals("NetworkedCalculator#pi(int) sollte bei negativen Parameter 0 liefern", new BigDecimal(0), resultNegativ);
     }
 
     @Test

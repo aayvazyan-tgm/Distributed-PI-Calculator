@@ -22,6 +22,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -30,16 +31,19 @@ public class TestProxy {
     private Proxy worker;
 
     @Before
-    public void prepare() throws URISyntaxException {
+    public void prepare() throws URISyntaxException, RemoteException {
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
+
+        Server server = new Server(1099);
+        server.serve();
 
         ArrayList <URI> uris = new ArrayList<URI>();
 
         uris.add(new URI("localhost:1099"));
 
-        worker = new Proxy(1099, uris);
+        worker = new Proxy(2099, uris);
     }
 
     @After
@@ -58,8 +62,7 @@ public class TestProxy {
             exspected = e;
         }
 
-        assertNull("AlgorithmCalculator#pi(int) sollte bei negativen Parameter kein Ergebnis liefern", resultNegativ);
-        assertNotNull("AlgorithmCalculator#pi(int) sollte bei negativen Parameter eine Exception liefern", exspected);
+        assertEquals("Proxy#pi(int) sollte bei negativen Parameter 0 liefern", new BigDecimal(0), resultNegativ);
     }
 
     @Test

@@ -24,6 +24,7 @@ import java.rmi.server.UnicastRemoteObject;
  * The Class Server.
  */
 public class Server extends AbstractWorker {
+    private int port;
 	/**
 	 * Erstellt einen neuen Server an einen spezifizierten Port
 	 *
@@ -32,9 +33,11 @@ public class Server extends AbstractWorker {
 	public Server(int port) {
         AlgorithmCalculator calculator = new AlgorithmCalculator();
         setCalculator(calculator);
+
+        this.port = port;
 	}
 
-    public void serve(int port) throws RemoteException {
+    public void serve() throws RemoteException {
         String name = "Calculator";
         Calculator stub;
         stub = (Calculator) UnicastRemoteObject.exportObject(this.getCalculator(), 0);

@@ -57,8 +57,7 @@ public class TestClient {
             exspected = e;
         }
 
-        assertNull("AlgorithmCalculator#pi(int) sollte bei negativen Parameter kein Ergebnis liefern", resultNegativ);
-        assertNotNull("AlgorithmCalculator#pi(int) sollte bei negativen Parameter eine Exception liefern", exspected);
+        assertEquals("Client#pi(int) sollte bei negativen Parameter 0 liefern", new BigDecimal(0), resultNegativ);
     }
 
     @Test
