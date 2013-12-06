@@ -22,21 +22,27 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 
 import static org.junit.Assert.*;
 
 public class TestClient {
     private Client worker;
+    private static boolean runonce = false;
 
     @Before
     public void prepare()
-            throws URISyntaxException {
+            throws URISyntaxException, AlreadyBoundException, RemoteException {
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
 
-        Server server = new Server(1099);
+        if(!runonce) {
+            Server server = new Server(1099);
+            server.serve();
+            runonce = true;
+        }
 
         URI serverURI = new URI("localhost:1099");
         worker = new Client(serverURI);

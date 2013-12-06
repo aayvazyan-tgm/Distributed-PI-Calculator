@@ -30,6 +30,7 @@ import static org.junit.Assert.*;
 
 public class TestProxy {
     private Proxy worker;
+    private static boolean runonce = false;
 
     @Before
     public void prepare() throws URISyntaxException, RemoteException, AlreadyBoundException {
@@ -37,12 +38,15 @@ public class TestProxy {
             System.setSecurityManager(new SecurityManager());
         }
 
-        Server server = new Server(1099);
-        server.serve();
+        if(!runonce) {
+            Server server = new Server(1097);
+            server.serve();
+            runonce = true;
+        }
 
         ArrayList <URI> uris = new ArrayList<URI>();
 
-        uris.add(new URI("localhost:1099"));
+        uris.add(new URI("localhost:1097"));
 
         worker = new Proxy(2099, uris);
     }
