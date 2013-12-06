@@ -15,21 +15,20 @@
  */
 package rmi;
 
-// TODO: Auto-generated Javadoc
 
 import java.net.URI;
 import java.util.List;
 
 /**
- * The Class Proxy.
+ * The Class Proxy is a client and a Server at the same time, it receives data from clients and redirects them to a new Server
  */
 public class Proxy extends Server {
 
 	/**
-	 * Instantiates a new proxy.
-     *
-     * @param port
-     * @param servers
+	 * Instantiates a new load balancer.
+	 *
+	 * @param port the port to listen to
+	 * @param servers the servers to redirect to
 	 */
 	public Proxy(int port, List<URI> servers) {
         super(port);

@@ -19,17 +19,17 @@ import java.math.BigDecimal;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface Calculator.
  */
 public interface Calculator extends Remote {
 
 	/**
-	 * Pi.
+	 * Generates Pi.
 	 *
-	 * @param anzahlNachkommastellen the anzahl nachkommastellen
-	 * @return the big decimal
+	 * @param digits the amount of digits to calculate
+	 * @return pi with the given amount of digits
+	 * @throws RemoteException if a digits number < 0 is provided
 	 */
-	public BigDecimal pi(int anzahlNachkommastellen) throws RemoteException;
+	public BigDecimal pi(int digits) throws RemoteException;
 }

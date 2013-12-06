@@ -20,15 +20,16 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 
 /**
- * The Class Main.
+ * The Main Class.
  */
 public class Main {
+	
 	/**
-	 * Main.
+	 * Checks the user input and starts the selected service: Server/Client/Proxy
 	 *
-	 * @param args the args
+	 * @param args the args provided by the user
 	 */
-	public static void main(String[] args) throws RemoteException, AlreadyBoundException, URISyntaxException {
+	public static void main(String[] args){
 
         /* SecurityManager */
         if (System.getSecurityManager() == null) {
@@ -41,12 +42,20 @@ public class Main {
         switch (parser.getProgramType()) {
             case CLIENT:
                 Client client = new Client(parser.clientURI);
-                System.out.println(client.pi(parser.piDigits));
+			try {
+				System.out.println(client.pi(parser.piDigits));
+			} catch (RemoteException e1) {
+				e1.printStackTrace();
+			}
                 break;
             case SERVER:
                 Server server = new Server(parser.port);
                 try {
-                    server.serve();
+                    try {
+						server.serve();
+					} catch (AlreadyBoundException e) {
+						e.printStackTrace();
+					}
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -55,7 +64,7 @@ public class Main {
                 Proxy proxy = new Proxy(parser.port, parser.proxyURIs);
                 try {
                     proxy.serve();
-                } catch (RemoteException e) {
+                } catch (RemoteException | AlreadyBoundException e) {
                     e.printStackTrace();
                 }
                 break;

@@ -22,15 +22,20 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- * The Class Server.
+ * The Class Server provides functionality to calculate pi
  */
 public class Server extends AbstractWorker {
+    
+    /** The port. */
     private int port;
+    
+    /** The stub. */
     private Calculator stub;
+	
 	/**
-	 * Erstellt einen neuen Server an einen spezifizierten Port
+	 * Creates a new server
 	 *
-	 * @param port der Port an dem der Server lauschen soll
+	 * @param port the port to listen to
 	 */
 	public Server(int port) {
         AlgorithmCalculator calculator = new AlgorithmCalculator();
@@ -39,6 +44,12 @@ public class Server extends AbstractWorker {
         this.port = port;
 	}
 
+    /**
+     * Serve starts the RMI server
+     *
+     * @throws RemoteException the remote exception
+     * @throws AlreadyBoundException the already bound exception
+     */
     public void serve() throws RemoteException, AlreadyBoundException {
         Registry registry = LocateRegistry.createRegistry(port);
 

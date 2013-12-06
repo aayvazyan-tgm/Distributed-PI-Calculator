@@ -32,15 +32,26 @@ public abstract class AbstractWorker {
 	 *
 	 * @param anzahlNachkommastellen the anzahl nachkommastellen
 	 * @return the big decimal
+	 * @throws RemoteException the remote exception
 	 */
 	public BigDecimal pi(int anzahlNachkommastellen) throws RemoteException {
 		return calculator.pi(anzahlNachkommastellen);
 	}
 
+    /**
+     * Sets the calculator.
+     *
+     * @param calculator the new calculator
+     */
     public void setCalculator(Calculator calculator) {
         this.calculator = calculator;
     }
 
+    /**
+     * Gets the calculator.
+     *
+     * @return the calculator
+     */
     public Calculator getCalculator() {
         return calculator;
     }

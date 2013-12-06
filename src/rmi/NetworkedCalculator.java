@@ -32,11 +32,11 @@ public class NetworkedCalculator implements Calculator {
     /** The servers. */
     private List<URI> servers;
 
-    /** The position for roundrobin load balancing */
+    /** The position for roundrobin load balancing. */
     private int position;
 
     /**
-     * creates an emty list
+     * creates an emty list.
      */
     public NetworkedCalculator(){
         servers=new ArrayList<URI>();
@@ -53,13 +53,11 @@ public class NetworkedCalculator implements Calculator {
 
 
     /**
-     * Accesses one of the listed server to ask it for pi
+     * Accesses one of the listed server to ask it for pi.
      *
      * @param anzahlNachkommastellen decimal places
      * @return Pi with a given number of decimal places as BigDecimal
-     *
-     *
-     *
+     * @throws RemoteException the remote exception
      * @see rmi.Calculator#pi(int)
      */
     public BigDecimal pi(int anzahlNachkommastellen) throws RemoteException {

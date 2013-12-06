@@ -20,25 +20,19 @@ import java.math.BigDecimal;
 import java.rmi.RemoteException;
 
 /**
- * The Class AlgorithmCalculator.
+ * The Class AlgorithmCalculator, it conaints the algorithm to calculate pi
  */
 public class AlgorithmCalculator implements Calculator, Serializable {
 
 
-	/**
-	 * Pi.
-	 *
-	 * @param anzahlNachkommastellen the anzahl nachkommastellen
-	 * @return the big decimal
-	 * @see rmi.Calculator#pi(int)
-	 */
+	/** Pi. @see rmi.Calculator#pi(int) */
     private static final long serialVersionUID = 227L;
     
-    /** constants used in pi computation */
+    /** constants used in pi computation. */
     private static final BigDecimal FOUR =
         BigDecimal.valueOf(4);
  
-    /** rounding mode to use during pi computation */
+    /** rounding mode to use during pi computation. */
     private static final int roundingMode =
         BigDecimal.ROUND_HALF_EVEN;
  
@@ -48,11 +42,14 @@ public class AlgorithmCalculator implements Calculator, Serializable {
      * Compute the value of pi to the specified number of
      * digits after the decimal point.  The value is
      * computed using Machin's formula:
-     *
-     *          pi/4 = 4*arctan(1/5) - arctan(1/239)
-     *
+     * 
+     * pi/4 = 4*arctan(1/5) - arctan(1/239)
+     * 
      * and a power series expansion of arctan(x) to
      * sufficient precision.
+     *
+     * @param digits the digits
+     * @return the big decimal
      */
     private static BigDecimal computePi(int digits) {
         int scale = digits + 5;
@@ -63,15 +60,20 @@ public class AlgorithmCalculator implements Calculator, Serializable {
         return pi.setScale(digits,
                            BigDecimal.ROUND_HALF_UP);
     }
+    
     /**
      * Compute the value, in radians, of the arctangent of
      * the inverse of the supplied integer to the specified
      * number of digits after the decimal point.  The value
      * is computed using the power series expansion for the
      * arc tangent:
-     *
+     * 
      * arctan(x) = x - (x^3)/3 + (x^5)/5 - (x^7)/7 +
-     *     (x^9)/9 ...
+     * (x^9)/9 ...
+     *
+     * @param inverseX the inverse x
+     * @param scale the scale
+     * @return the big decimal
      */  
     private static BigDecimal arctan(int inverseX,
                                     int scale)
@@ -102,8 +104,13 @@ public class AlgorithmCalculator implements Calculator, Serializable {
         } while (term.compareTo(BigDecimal.ZERO) != 0);
         return result;
     }
+    
     /**
-     * Berechnet pi auf die genauigkeit der nachkommastellen
+     * Calculates pi with the given count of digits.
+     *
+     * @param digits - the ammount of digits to calculate 
+     * @return pi with the given ammount of digits
+     * @throws RemoteException if digits is < 0
      */
 	public BigDecimal pi(int anzahlNachkommastellen) throws RemoteException {
         if(anzahlNachkommastellen < 0) {

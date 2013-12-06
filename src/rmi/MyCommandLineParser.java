@@ -1,3 +1,18 @@
+/*
+  Copyright 2013: Ari Ayvazyan & Jakob Klepp
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
 package rmi;
 
 
@@ -18,31 +33,57 @@ import java.util.List;
 
 
 /**
- * Verwaltet die Optionen und deren Argumente.
- * @author Ari Ayvazyan
- * @version 20.11.2013
+ * Verwaltet die Argumente und deren Argumente.
  */
 public class MyCommandLineParser {
+	
+	/**
+	 * The Enum ProgramType.
+	 */
 	public enum ProgramType{
-		SERVER,CLIENT,PROXY,NONE
+		
+		/** The server. */
+		SERVER,
+		/** The client. */
+		CLIENT,
+		/** The proxy. */
+		PROXY,
+		/** The none. */
+		NONE
 	}
+	
+	/** The URI if the user selected client. */
 	public URI clientURI;
+	
+	/** The pi digits if the user selected client. */
 	public int piDigits;
+	
+	/** The URIs given by the user, if proxy was selected. */
 	public ArrayList<URI> proxyURIs;
+	
+	/** The port, if given by the user. */
 	public int port;
+	
+	/** The is server. */
 	private boolean isServer=false;
+	
+	/** The is proxy. */
 	private boolean isProxy=false;
+	
+	/** The is client. */
 	private boolean isClient=false;
+	
+	/** The Constant synopsis. */
 	private final static String synopsis="Aviable options:\n" +
-			"--client <URI> <piDigits>\n" +
-			"--server <port>\n" +
-			"--proxy <port> <URIs...>\n";
+			"-c --client <URI> <piDigits>\n" +
+			"-s --server <port>\n" +
+			"-p --proxy <port> <URIs...>\n"+
+			"-h --hilfe \n";
 
     /**
      * Verarbeitet die argumente.
      *
-     * @param args - Die zu parsende Argumente.
-     * @throws OptionException the option exception
+     * @param args - Die zu parsenden Argumente.
      */
 	public MyCommandLineParser(String[] args) {
 
@@ -167,20 +208,11 @@ public class MyCommandLineParser {
 		}
 	}
 
-    /*
-     * For internal use
-     */
-    private URI strToUri(String hostColonPort)
-            throws URISyntaxException {
-        String[] split = hostColonPort.split(":");
-
-        if(split.length != 2) {
-            throw new URISyntaxException("Syntax must be host:port", hostColonPort);
-        }
-
-        return new URI(hostColonPort);
-    }
-
+	/**
+	 * Gets the program type.
+	 *
+	 * @return returns the selected ProgrammType, ProgrammType.NONE if none was selected
+	 */
 	public ProgramType getProgramType(){
 		if(isServer)return ProgramType.SERVER;
 		if(isProxy)return ProgramType.PROXY;
