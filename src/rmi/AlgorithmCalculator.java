@@ -108,15 +108,18 @@ public class AlgorithmCalculator implements Calculator, Serializable {
     /**
      * Calculates pi with the given count of digits.
      *
-     * @param digits - the ammount of digits to calculate 
+     * @param anzahlNachkommastellen - the ammount of digits to calculate
      * @return pi with the given ammount of digits
      * @throws RemoteException if digits is < 0
      */
 	public BigDecimal pi(int anzahlNachkommastellen) throws RemoteException {
+
         if(anzahlNachkommastellen < 0) {
             throw new RemoteException("Caused by",
                     new NumberFormatException("Param must not be < 0, it is: " + anzahlNachkommastellen));
         }
+
+        System.out.println("AlgorithmCalculator#pi aufgerufen, params: {anzahlNachkommastellen=" + anzahlNachkommastellen + "}");
 
 		return computePi(anzahlNachkommastellen);
 	}

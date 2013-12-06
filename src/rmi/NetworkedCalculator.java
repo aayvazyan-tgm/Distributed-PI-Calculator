@@ -79,6 +79,9 @@ public class NetworkedCalculator implements Calculator {
             e.printStackTrace();
         }
 
+        System.out.println("NetworkedCalculator#pi aufgerufen, params: {anzahlNachkommastellen=" + anzahlNachkommastellen + "}");
+        System.out.println("\tdeligiert zu an Server:{host=" + server.getScheme() +", port="+server.getSchemeSpecificPart()+"}");
+
         return pi;
     }
 }
