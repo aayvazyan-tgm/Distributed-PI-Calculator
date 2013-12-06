@@ -29,7 +29,7 @@ public class Main {
 	 *
 	 * @param args the args provided by the user
 	 */
-	public static void main(String[] args){
+	public static void main(String... args) throws RemoteException, AlreadyBoundException, URISyntaxException {
 
         /* SecurityManager */
         if (System.getSecurityManager() == null) {
