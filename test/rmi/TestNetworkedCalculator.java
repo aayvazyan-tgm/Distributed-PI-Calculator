@@ -29,6 +29,7 @@ import static org.junit.Assert.*;
 
 public class TestNetworkedCalculator {
     private NetworkedCalculator calculator;
+    private static boolean runonce = false;
 
     @Before
     public void prepare()
@@ -37,12 +38,15 @@ public class TestNetworkedCalculator {
             System.setSecurityManager(new SecurityManager());
         }
 
-        Server server = new Server(1099);
-        server.serve();
+        if(!runonce) {
+            Server server = new Server(1098);
+            server.serve();
+            runonce = true;
+        }
 
         calculator  = new NetworkedCalculator();
 
-        URI uri = new URI("localhost:1099");
+        URI uri = new URI("localhost:1098");
         calculator.addServer(uri);
     }
 

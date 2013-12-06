@@ -27,6 +27,7 @@ import static org.junit.Assert.*;
 
 public class TestServer {
     private Server worker;
+    private static int port = 3000;
 
     @Before
     public void prepare() throws RemoteException, AlreadyBoundException {
@@ -34,7 +35,7 @@ public class TestServer {
             System.setSecurityManager(new SecurityManager());
         }
 
-        worker = new Server(1099);
+        worker = new Server(port ++);
         worker.serve();
     }
 
