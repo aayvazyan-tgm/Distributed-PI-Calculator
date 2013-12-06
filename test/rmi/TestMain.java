@@ -17,10 +17,6 @@ package rmi;
 
 import org.junit.Test;
 
-import java.net.URISyntaxException;
-import java.rmi.AlreadyBoundException;
-import java.rmi.RemoteException;
-
 import static org.junit.Assert.assertTrue;
 
 public class TestMain {
@@ -29,15 +25,7 @@ public class TestMain {
         new Thread() {
             @Override
             public void run() {
-                try {
-                    Main.main("-s", "8888");
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                } catch (AlreadyBoundException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
+                Main.main("-s", "8888");
             }
         }.start();
         return true;
@@ -47,15 +35,7 @@ public class TestMain {
         new Thread() {
             @Override
             public void run() {
-                try {
-                    Main.main("-p", "4444", "localhost:8888");
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                } catch (AlreadyBoundException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
+                Main.main("-p", "4444", "localhost:8888");
             }
         }.start();
         return true;
@@ -65,15 +45,7 @@ public class TestMain {
         new Thread() {
             @Override
             public void run() {
-                try {
-                    Main.main("-c", "localhost:4444", "50");
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                } catch (AlreadyBoundException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
+                Main.main("-c", "localhost:4444", "50");
             }
         }.start();
         return true;

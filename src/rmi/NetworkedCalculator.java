@@ -69,9 +69,9 @@ public class NetworkedCalculator implements Calculator {
         URI server = servers.get(position);
 
         String name = "Calculator";
+        String host = server.getHost();
+        int port = server.getPort();
         try {
-            String host = server.getScheme(); //....
-            int port = Integer.parseInt(server.getSchemeSpecificPart()); // ....//
             Registry registry = LocateRegistry.getRegistry(host, port);
             Calculator calc = (Calculator) registry.lookup(name);
             pi = calc.pi(anzahlNachkommastellen);
@@ -80,7 +80,7 @@ public class NetworkedCalculator implements Calculator {
         }
 
         System.out.println("NetworkedCalculator#pi aufgerufen, params: {anzahlNachkommastellen=" + anzahlNachkommastellen + "}");
-        System.out.println("\tdeligiert zu an Server:{host=" + server.getScheme() +", port="+server.getSchemeSpecificPart()+"}");
+        System.out.println("\tdeligiert zu an Server:{host=" + host +", port="+port+"}");
 
         return pi;
     }

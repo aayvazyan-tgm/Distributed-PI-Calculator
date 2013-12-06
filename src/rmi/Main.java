@@ -15,13 +15,8 @@
  */
 package rmi;
 
-import java.awt.Toolkit;
-import java.io.ObjectInputStream.GetField;
-import java.net.URISyntaxException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
-
-import javax.annotation.Resource;
 
 /**
  * The Main Class.

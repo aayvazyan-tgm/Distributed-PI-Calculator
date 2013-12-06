@@ -19,14 +19,12 @@ package rmi;
 import org.apache.commons.cli2.CommandLine;
 import org.apache.commons.cli2.Group;
 import org.apache.commons.cli2.Option;
-import org.apache.commons.cli2.OptionException;
 import org.apache.commons.cli2.builder.ArgumentBuilder;
 import org.apache.commons.cli2.builder.DefaultOptionBuilder;
 import org.apache.commons.cli2.builder.GroupBuilder;
 import org.apache.commons.cli2.commandline.Parser;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,7 +139,7 @@ public class MyCommandLineParser {
 				String rawDigits= (String) cl.getValues(clientkOption).get(1);
 				try{
 					//parsen
-					this.clientURI=new URI(rawURI);
+					this.clientURI=new URI("rmi://" + rawURI);
 					this.piDigits=Integer.parseInt(rawDigits);
 				}catch(Exception e){
 					e.printStackTrace();
@@ -171,7 +169,7 @@ public class MyCommandLineParser {
 					this.port=Integer.parseInt(rawPort);
 					this.proxyURIs = new ArrayList<URI>();
 					for(int i=1;i<l.size();i++){
-						URI u=new URI(l.get(i));
+						URI u=new URI("rmi://" + l.get(i));
 						proxyURIs.add(u);
 			        }
 				} catch(Exception e) {

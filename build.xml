@@ -193,6 +193,9 @@
         <copy todir="${build.dir}/res">
             <fileset dir="${res.dir}" />
         </copy>
+        <copy todir="${build.dir}">
+            <fileset dir="${res.dir}" />
+        </copy>
 
         <delete dir="${build.dir}/doc" />
         <copy todir="${build.dir}/doc">
@@ -205,6 +208,7 @@
             <fileset dir="${build.dir}"/>
             <manifest>
                 <attribute name="Main-Class" value="${main.class}"/>
+                <attribute name="Class-Path" value="lib/commons-cli-2.0-mahout.jar" />
             </manifest>
         </jar>
     </target>
