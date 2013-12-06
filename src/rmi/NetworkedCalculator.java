@@ -80,7 +80,7 @@ public class NetworkedCalculator implements Calculator {
         }
 
         System.out.println("NetworkedCalculator#pi aufgerufen, params: {anzahlNachkommastellen=" + anzahlNachkommastellen + "}");
-        System.out.println("\tdeligiert zu an Server:{host=" + host +", port="+port+"}");
+        System.out.println("\tdeligiert an Server:{host=" + host +", port="+port+"}");
 
         return pi;
     }

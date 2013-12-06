@@ -87,13 +87,6 @@ Benotungskriterien
 - davon 2 Punkte: Testprotokoll mit sinnvollen Werten für Serverpoolgröße und
   Iterationen
 
-~~~~~~~
-Quellen
-~~~~~~~
-An Overview of RMI Applications, Oracle Online Resource,
-
-http://docs.oracle.com/javase/tutorial/rmi/overview.html (last viewed 03.12.2013)
-
 =======
 Planung
 =======
@@ -135,32 +128,64 @@ Klassendiagramm
 =========
 Umsetzung
 =========
-=====
-Tests
-=====
+Das Strategy Pattern kommt zum Einsatz um den Code wie pi verwendet vom Code zu
+trennen wie das Ergebniss weiterverwendet wird. Das Interface ``Calculator``
+ist sowohl Remote als auch das Verhalten im Strategy Pattern.
+
+``Calculator`` wird auf zwei Arten implementiert,
+als ``NetworkedCalculator`` welcher pi durch anfrage an ei RemoteObject
+berechnen lässt und
+als ``AlgorithmCalculator`` welcher pi mithilfe von Machin's Formel berechnet.
+
+.. image:: doc/798px-RMI-Stubs-Skeletons.svg.png
+    :width: 100%
+
+*Grundsätzlicher aufbau eines RMI Systems* [2]_
+
+Während im Tutorial [1]_ ein System umgesetzt wurde das über Client und Server
+verfügt, enthält Distributed Pi Calculator zusätzlich einen Proxy zur
+Lastenverteilung. (Theoretisch ist auch eine tiefere Verschachtelung möglich)
+
+.. image:: doc/RMI-Stubs-Skeletons.proxy.png
+    :width: 100%
+
+*RMI System mit Proxy zur Lastenverteilung*
+
 ~~~~~~
 Client
 ~~~~~~
---------
-Client 1
---------
+Der ``Client`` hat einen ``NetworkedCalculator`` welcher auf die Funktionalität
+eines über RMI bereitgestellten ``Calculator`` angewießen ist. Vom User
+bekommt der ``Client`` eine Anweisung wie viele Stellen von pi er Anzeigen soll
+holt sich diesen Wert über den ``NetworkedCalculator`` und gibt das Ergebniss
+aus.
 
-.. image:: doc/testClient1.png
-    :width: 100%
-
---------
-Client 2
---------
-
-.. image:: doc/testClient2.png
-    :width: 100%
+~~~~~~
+Server
+~~~~~~
+Der ``Server`` hat einen ``AlgorithmCalculator`` welcher pi mithilfe eines
+Algortihmus berechnen kann. Der ``Server`` stellt diesen über RMI zur
+verfügung.
 
 ~~~~~
 Proxy
 ~~~~~
+Der ``Proxy`` vereinfach Eigenschaften von ``Client`` und ``Server``. Er
+verfügt über einen ``NetworkedCalculator`` und stellt desen Funktionalität über
+RMI zur verfügung. Dem ``Client`` gegenüber erscheint er daher als ``Server``,
+dem ``Server`` gegenüber als ``Client``.
 
-.. image:: doc/testProxy.png
-    :width: 100%
+=====
+Tests
+=====
+Zur Testdurchführung werden auf dem Windows PC 3 Server gestartet.
+
+Auf dem Linux PC wird ein Proxy gestartet dem diese 3 Server bekannt sind.
+
+Von beiden Maschinen werden Clients gestartet welche dem Proxy um
+unteschiedlich viele Stellen von pi fragen.
+
+Der Proxy teilt diese Anfragen auf die Server auf.
 
 ~~~~~~
 Server
@@ -184,6 +209,30 @@ Server 3
 --------
 
 .. image:: doc/testServer3.png
+    :width: 100%
+
+~~~~~
+Proxy
+~~~~~
+
+.. image:: doc/testProxy.png
+    :width: 100%
+
+~~~~~~
+Client
+~~~~~~
+--------
+Client 1
+--------
+
+.. image:: doc/testClient1.png
+    :width: 100%
+
+--------
+Client 2
+--------
+
+.. image:: doc/testClient2.png
     :width: 100%
 
 ~~~~~~~~~~~
@@ -240,6 +289,29 @@ Zeitaufzeichnung
 +-----------------------------+-----------+--------------+---------+---------+-----------+
 | JUnit test fixen, erweitern | jklepp    |  2013-12-06  |  08:40  |  09:30  |     0:50  |
 +-----------------------------+-----------+--------------+---------+---------+-----------+
+| Manuelle Tests              | aayvazyan |  2013-12-06  |  11:30  |  12:10  |     0:40  |
+|                             | jklepp    |              |         |         |           |
++-----------------------------+-----------+--------------+---------+---------+-----------+
+| Dokument abschließen        | jklepp    |  2013-12-06  |  12:20  |  14:00  |     1:40  |
++-----------------------------+-----------+--------------+---------+---------+-----------+
+
+=======
+Quellen
+=======
+.. _1:
+
+[1] An Overview of RMI Applications, Oracle Online Resource,
+
+    http://docs.oracle.com/javase/tutorial/rmi/overview.html
+    (last viewed 06.12.2013)
+
+.. _2:
+
+[2] RMI-Stubs-Skeletons.svg, Wikipedia,
+
+    https://en.wikipedia.org/wiki/File:RMI-Stubs-Skeletons.svg
+    (last viewed 06.12.2013)
+
 
 .. header::
 
