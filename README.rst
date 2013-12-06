@@ -130,7 +130,7 @@ Klassendiagramm
 ~~~~~~~~~~~~~~~
 
 .. image:: doc/classDiagram.png
-    :width: 75%
+    :width: 100%
 
 =========
 Umsetzung
@@ -141,19 +141,47 @@ Tests
 ~~~~~~
 Client
 ~~~~~~
+--------
+Client 1
+--------
+
+.. image:: doc/testClient1.png
+    :width: 100%
+
+--------
+Client 2
+--------
+--------
+Client 3
+--------
+--------
+Client 4
+--------
 ~~~~~
 Proxy
 ~~~~~
+
+.. image:: doc/testProxy.png
+    :width: 100%
+
 ~~~~~~
 Server
 ~~~~~~
+--------
+Server 1
+--------
+--------
+Server 2
+--------
+--------
+Server 3
+--------
 ~~~~~~~~~~~
 JUnit tests
 ~~~~~~~~~~~
 
-.. code:: text
-
-
+.. image:: doc/junitTestResults.png
+    :width: 100%
 
 ================
 Zeitaufzeichnung
@@ -208,7 +236,7 @@ Zeitaufzeichnung
     +-------------+---------------+------------+
     | Titel       | Autor         | Datum      |
     +=============+===============+============+
-    | ###Title### | Ari Ayvazyan  | 04.12.2013 |
+    | ###Title### | Ari Ayvazyan  | 06.12.2013 |
     |             | & Jakob Klepp |            |
     +-------------+---------------+------------+
 
