@@ -151,12 +151,10 @@ Client 1
 --------
 Client 2
 --------
---------
-Client 3
---------
---------
-Client 4
---------
+
+.. image:: doc/testClient2.png
+    :width: 100%
+
 ~~~~~
 Proxy
 ~~~~~
@@ -170,12 +168,24 @@ Server
 --------
 Server 1
 --------
+
+.. image:: doc/testServer1.png
+    :width: 100%
+
 --------
 Server 2
 --------
+
+.. image:: doc/testServer2.png
+    :width: 100%
+
 --------
 Server 3
 --------
+
+.. image:: doc/testServer3.png
+    :width: 100%
+
 ~~~~~~~~~~~
 JUnit tests
 ~~~~~~~~~~~
