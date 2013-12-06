@@ -15,9 +15,13 @@
  */
 package rmi;
 
+import java.awt.Toolkit;
+import java.io.ObjectInputStream.GetField;
 import java.net.URISyntaxException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
+
+import javax.annotation.Resource;
 
 /**
  * The Main Class.
@@ -29,10 +33,14 @@ public class Main {
 	 *
 	 * @param args the args provided by the user
 	 */
-	public static void main(String[] args){
-
-        /* SecurityManager */
+	public static void main(String... args){
+        /* SecurityManager, inserts the policy if none is given*/
         if (System.getSecurityManager() == null) {
+        	try{
+        	System.setProperty("java.security.policy", System.class.getResource("/java.policy").toString());
+        	}catch(Exception e){
+        		System.err.println("policy file: java.policy was not found or could not be set as property");
+        	}
             System.setSecurityManager(new SecurityManager());
         }
 
